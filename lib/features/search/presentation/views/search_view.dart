@@ -6,9 +6,15 @@ import 'package:pop_reference/features/search/presentation/widgets/custom_drawer
 import 'package:pop_reference/features/search/presentation/widgets/reference_item.dart';
 import 'package:pop_reference/features/search/presentation/widgets/search_widget.dart';
 
-class SearchView extends StatelessWidget {
+class SearchView extends StatefulWidget {
   const SearchView({super.key});
 
+  @override
+  State<SearchView> createState() => _SearchViewState();
+}
+
+class _SearchViewState extends State<SearchView> {
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +31,16 @@ class SearchView extends StatelessWidget {
                 duration: const Duration(milliseconds: 500),
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                child: const SearchWidget(),
+                child: SearchWidget(controller: _controller),
               ),
               Expanded(
                 child: Row(
                   children: [
-                    const Expanded(
-                      child: CustomDrawer(),
+                    Expanded(
+                      child: CustomDrawer(
+                        query: _controller.text,
+                        page: 1,
+                      ),
                     ),
                     if (state is SearchSuccess)
                       Expanded(

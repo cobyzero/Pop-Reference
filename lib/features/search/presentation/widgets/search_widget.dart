@@ -5,14 +5,14 @@ import 'package:pop_reference/core/utils/utils.dart';
 import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({super.key});
+  const SearchWidget({super.key, required this.controller});
+  final TextEditingController controller;
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _SearchWidgetState extends State<SearchWidget> {
           ],
         ),
         child: TextFormField(
-          controller: _controller,
+          controller: widget.controller,
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'Search cannot be empty';
@@ -50,7 +50,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   context.read<SearchBloc>().add(
-                        SearchQuery(_controller.text),
+                        SearchQuery(widget.controller.text, 1),
                       );
                 }
               },
