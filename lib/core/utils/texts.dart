@@ -75,7 +75,7 @@ class Texts extends StatelessWidget {
         child: Text(
           text,
           textAlign: alignment,
-          style: (style ?? GoogleFonts.mulish()).copyWith(
+          style: (style ?? GoogleFonts.roboto()).copyWith(
             color: color,
             fontSize: fontSize.sp,
             height: height,

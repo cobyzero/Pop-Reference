@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: router,
           theme: ThemeData(
-            textTheme: GoogleFonts.interTextTheme(),
+            textTheme: GoogleFonts.robotoTextTheme(),
           ),
           title: 'Material App',
         );

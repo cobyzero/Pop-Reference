@@ -1,42 +1,36 @@
 class SearchEntity {
   List<Result> results;
-  int totalResults;
+  Totals totals;
   String currentPage;
-  String source;
 
   SearchEntity({
     required this.results,
-    required this.totalResults,
+    required this.totals,
     required this.currentPage,
-    required this.source,
   });
 
   SearchEntity copyWith({
     List<Result>? results,
-    int? totalResults,
+    Totals? totals,
     String? currentPage,
-    String? source,
   }) =>
       SearchEntity(
         results: results ?? this.results,
-        totalResults: totalResults ?? this.totalResults,
+        totals: totals ?? this.totals,
         currentPage: currentPage ?? this.currentPage,
-        source: source ?? this.source,
       );
 
   factory SearchEntity.fromJson(Map<String, dynamic> json) => SearchEntity(
         results:
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        totalResults: json["totalResults"],
+        totals: Totals.fromJson(json["totals"]),
         currentPage: json["currentPage"],
-        source: json["source"],
       );
 
   Map<String, dynamic> toJson() => {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
-        "totalResults": totalResults,
+        "totals": totals.toJson(),
         "currentPage": currentPage,
-        "source": source,
       };
 }
 
@@ -47,6 +41,7 @@ class Result {
   String link;
   String domain;
   String description;
+  Source source;
 
   Result({
     required this.title,
@@ -55,6 +50,7 @@ class Result {
     required this.link,
     required this.domain,
     required this.description,
+    required this.source,
   });
 
   Result copyWith({
@@ -64,6 +60,7 @@ class Result {
     String? link,
     String? domain,
     String? description,
+    Source? source,
   }) =>
       Result(
         title: title ?? this.title,
@@ -72,6 +69,7 @@ class Result {
         link: link ?? this.link,
         domain: domain ?? this.domain,
         description: description ?? this.description,
+        source: source ?? this.source,
       );
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
@@ -81,6 +79,7 @@ class Result {
         link: json["link"],
         domain: json["domain"],
         description: json["description"],
+        source: sourceValues.map[json["source"]]!,
       );
 
   Map<String, dynamic> toJson() => {
@@ -90,5 +89,52 @@ class Result {
         "link": link,
         "domain": domain,
         "description": description,
+        "source": sourceValues.reverse[source],
       };
+}
+
+enum Source { GOOGLE_SCHOLAR, SCIELO }
+
+final sourceValues = EnumValues(
+    {"google-scholar": Source.GOOGLE_SCHOLAR, "scielo": Source.SCIELO});
+
+class Totals {
+  int google;
+  int scielo;
+
+  Totals({
+    required this.google,
+    required this.scielo,
+  });
+
+  Totals copyWith({
+    int? google,
+    int? scielo,
+  }) =>
+      Totals(
+        google: google ?? this.google,
+        scielo: scielo ?? this.scielo,
+      );
+
+  factory Totals.fromJson(Map<String, dynamic> json) => Totals(
+        google: json["google"],
+        scielo: json["scielo"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "google": google,
+        "scielo": scielo,
+      };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
