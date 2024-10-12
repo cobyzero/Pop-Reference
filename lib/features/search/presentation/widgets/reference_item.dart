@@ -34,9 +34,9 @@ class ReferenceItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
-                        Icons.facebook,
-                        size: 17.sp,
+                      Image.asset(
+                        getIcon(reference.domain),
+                        width: 17.sp,
                       ),
                       CircleAvatar(
                         backgroundColor: Palette.white,
@@ -111,5 +111,14 @@ class ReferenceItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getIcon(String source) {
+    switch (source) {
+      case 'google-scholar':
+        return "assets/google.png";
+      default:
+        return "assets/google.png";
+    }
   }
 }

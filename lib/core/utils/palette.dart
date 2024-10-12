@@ -5,5 +5,5 @@ class Palette {
   static const black = Color(0xFF141414);
   static const white = Color(0xffF6F6F6);
   static const grey = Color(0xffD9D9D9);
-  static const google = Color(0xffFBBC05);
+  static const google = Color(0xff4D90FE);
 }

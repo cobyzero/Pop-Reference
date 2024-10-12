@@ -2,22 +2,26 @@ class SearchEntity {
   List<Result> results;
   int totalResults;
   String currentPage;
+  String source;
 
   SearchEntity({
     required this.results,
     required this.totalResults,
     required this.currentPage,
+    required this.source,
   });
 
   SearchEntity copyWith({
     List<Result>? results,
     int? totalResults,
     String? currentPage,
+    String? source,
   }) =>
       SearchEntity(
         results: results ?? this.results,
         totalResults: totalResults ?? this.totalResults,
         currentPage: currentPage ?? this.currentPage,
+        source: source ?? this.source,
       );
 
   factory SearchEntity.fromJson(Map<String, dynamic> json) => SearchEntity(
@@ -25,12 +29,14 @@ class SearchEntity {
             List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
         totalResults: json["totalResults"],
         currentPage: json["currentPage"],
+        source: json["source"],
       );
 
   Map<String, dynamic> toJson() => {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
         "totalResults": totalResults,
         "currentPage": currentPage,
+        "source": source,
       };
 }
 
