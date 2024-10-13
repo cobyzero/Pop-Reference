@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pop_reference/features/filter/domain/entities/filter_entity.dart';
 import 'package:pop_reference/features/search/domain/entities/search_dto.dart';
 import 'package:pop_reference/features/search/domain/entities/search_entity.dart';
 import 'package:pop_reference/features/search/domain/repositories/search_repository.dart';
@@ -10,7 +11,6 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.repository) : super(const SearchInitial()) {
     on<SearchQuery>(_onSearchQuery);
-    on<SearchFilters>(_onSearchFilters);
   }
 
   final SearchRepository repository;
@@ -22,17 +22,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchDto(
         query: event.query,
         page: event.page,
+        filter: event.filter,
       ),
     );
     emit(SearchSuccess(searchEntity: result));
-  }
-
-  Future<void> _onSearchFilters(
-      SearchFilters event, Emitter<SearchState> emit) async {
-    emit(state.copyWith(
-      google: event.google,
-      scielo: event.scielo,
-      secureMode: event.secureMode,
-    ));
   }
 }

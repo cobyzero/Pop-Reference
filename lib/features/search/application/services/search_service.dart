@@ -7,9 +7,9 @@ class SearchService {
     return await dio.get('/search', queryParameters: {
       'query': searchDto.query,
       'page': searchDto.page,
-      'google': searchDto.google,
-      'scielo': searchDto.scielo,
-      'secureMode': searchDto.secureMode,
+      'google': searchDto.filter.google,
+      'scielo': searchDto.filter.scielo,
+      'secureMode': searchDto.filter.secureMode,
     });
   }
 }

@@ -27,7 +27,9 @@ class MyBlocs extends StatelessWidget {
           lazy: false,
         ),
         BlocProvider(
-          create: (context) => FilterBloc(),
+          create: (context) => FilterBloc(
+            context.read<SearchBloc>(),
+          ),
           lazy: false,
         ),
       ],

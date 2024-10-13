@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pop_reference/core/utils/utils.dart';
-import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
+import 'package:pop_reference/features/filter/application/bloc/filter_bloc.dart';
 import 'package:pop_reference/features/filter/presentation/widgets/custom_checkbox.dart';
 
 class FilterView extends StatelessWidget {
@@ -28,7 +28,7 @@ class FilterView extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       padding: EdgeInsets.symmetric(horizontal: 1.w, vertical: 3.h),
-      child: BlocBuilder<SearchBloc, SearchState>(
+      child: BlocBuilder<FilterBloc, FilterState>(
         builder: (context, state) {
           return SingleChildScrollView(
             child: Column(
@@ -45,22 +45,24 @@ class FilterView extends StatelessWidget {
                   color: Palette.grey,
                 ),
                 CustomCheckbox(
-                  value: state.google ?? true,
+                  value: state.filter.google,
                   onChanged: (value) {
-                    context.read<SearchBloc>().add(SearchFilters(
+                    context.read<FilterBloc>().add(FilterFiltersEvent(
                           google: value ?? false,
+                          query: query,
+                          page: page,
                         ));
-                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Google Scholar',
                 ),
                 CustomCheckbox(
-                  value: state.scielo ?? true,
+                  value: state.filter.scielo,
                   onChanged: (value) {
-                    context.read<SearchBloc>().add(SearchFilters(
+                    context.read<FilterBloc>().add(FilterFiltersEvent(
                           scielo: value ?? false,
+                          query: query,
+                          page: page,
                         ));
-                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Scielo',
                 ).only(bottom: 2.h),
@@ -75,13 +77,13 @@ class FilterView extends StatelessWidget {
                   color: Palette.grey,
                 ),
                 CustomCheckbox(
-                  value: state.secureMode ?? true,
+                  value: state.filter.secureMode,
                   onChanged: (value) {
-                    context.read<SearchBloc>().add(SearchFilters(
+                    context.read<FilterBloc>().add(FilterFiltersEvent(
                           secureMode: value ?? false,
+                          query: query,
+                          page: page,
                         ));
-
-                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Secure mode',
                 ),

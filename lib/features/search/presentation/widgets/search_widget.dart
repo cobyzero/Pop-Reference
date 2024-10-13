@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
 import 'package:pop_reference/core/utils/utils.dart';
+import 'package:pop_reference/features/filter/application/bloc/filter_bloc.dart';
 import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -50,7 +51,11 @@ class _SearchWidgetState extends State<SearchWidget> {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   context.read<SearchBloc>().add(
-                        SearchQuery(widget.controller.text, 1),
+                        SearchQuery(
+                          widget.controller.text,
+                          1,
+                          context.read<FilterBloc>().state.filter,
+                        ),
                       );
                 }
               },
