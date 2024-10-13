@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pop_reference/core/utils/utils.dart';
 import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
-import 'package:pop_reference/features/search/presentation/widgets/custom_drawer.dart';
+import 'package:pop_reference/features/filter/presentation/views/filter_view.dart';
 import 'package:pop_reference/features/search/presentation/widgets/reference_item.dart';
 import 'package:pop_reference/features/search/presentation/widgets/search_widget.dart';
 
@@ -37,7 +37,7 @@ class _SearchViewState extends State<SearchView> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: CustomDrawer(
+                      child: FilterView(
                         query: _controller.text,
                         page: 1,
                       ),

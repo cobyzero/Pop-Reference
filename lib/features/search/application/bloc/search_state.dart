@@ -1,30 +1,8 @@
 part of 'search_bloc.dart';
 
-class SearchState {
+abstract class SearchState {
+  const SearchState({this.isActive});
   final bool? isActive;
-  final bool google;
-  final bool scielo;
-  final bool secureMode;
-  const SearchState({
-    this.isActive = false,
-    this.google = true,
-    this.scielo = true,
-    this.secureMode = true,
-  });
-
-  SearchState copyWith({
-    bool? isActive,
-    bool? google,
-    bool? scielo,
-    bool? secureMode,
-  }) {
-    return SearchState(
-      isActive: isActive ?? this.isActive,
-      google: google ?? this.google,
-      scielo: scielo ?? this.scielo,
-      secureMode: secureMode ?? this.secureMode,
-    );
-  }
 }
 
 final class SearchInitial extends SearchState {

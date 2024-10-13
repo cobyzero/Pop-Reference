@@ -22,9 +22,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchDto(
         query: event.query,
         page: event.page,
-        google: state.google,
-        scielo: state.scielo,
-        secureMode: state.secureMode,
       ),
     );
     emit(SearchSuccess(searchEntity: result));
@@ -37,7 +34,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       scielo: event.scielo,
       secureMode: event.secureMode,
     ));
-
-    add(SearchQuery(event.query, event.page));
   }
 }

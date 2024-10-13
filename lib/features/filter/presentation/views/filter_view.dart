@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pop_reference/core/utils/utils.dart';
 import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
-import 'package:pop_reference/features/search/presentation/widgets/custom_checkbox.dart';
+import 'package:pop_reference/features/filter/presentation/widgets/custom_checkbox.dart';
 
-class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({
+class FilterView extends StatelessWidget {
+  const FilterView({
     super.key,
     required this.query,
     required this.page,
@@ -45,24 +45,22 @@ class CustomDrawer extends StatelessWidget {
                   color: Palette.grey,
                 ),
                 CustomCheckbox(
-                  value: state.google,
+                  value: state.google ?? true,
                   onChanged: (value) {
                     context.read<SearchBloc>().add(SearchFilters(
                           google: value ?? false,
-                          query: query,
-                          page: page,
                         ));
+                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Google Scholar',
                 ),
                 CustomCheckbox(
-                  value: state.scielo,
+                  value: state.scielo ?? true,
                   onChanged: (value) {
                     context.read<SearchBloc>().add(SearchFilters(
                           scielo: value ?? false,
-                          query: query,
-                          page: page,
                         ));
+                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Scielo',
                 ).only(bottom: 2.h),
@@ -77,13 +75,13 @@ class CustomDrawer extends StatelessWidget {
                   color: Palette.grey,
                 ),
                 CustomCheckbox(
-                  value: state.secureMode,
+                  value: state.secureMode ?? true,
                   onChanged: (value) {
                     context.read<SearchBloc>().add(SearchFilters(
                           secureMode: value ?? false,
-                          query: query,
-                          page: page,
                         ));
+
+                    context.read<SearchBloc>().add(SearchQuery(query, page));
                   },
                   label: 'Secure mode',
                 ),

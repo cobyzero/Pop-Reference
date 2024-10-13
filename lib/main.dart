@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pop_reference/core/dependencies/injector.dart';
 import 'package:pop_reference/core/routes/router.dart';
+import 'package:pop_reference/features/filter/application/bloc/filter_bloc.dart';
 import 'package:pop_reference/features/search/application/bloc/search_bloc.dart';
 import 'package:pop_reference/features/search/domain/repositories/search_repository.dart';
 import 'package:sizer/sizer.dart';
@@ -23,6 +24,11 @@ class MyBlocs extends StatelessWidget {
           create: (context) => SearchBloc(
             getIt<SearchRepository>(),
           ),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => FilterBloc(),
+          lazy: false,
         ),
       ],
       child: const MyApp(),
