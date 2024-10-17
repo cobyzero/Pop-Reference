@@ -18,29 +18,29 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.white,
+      backgroundColor: Palette.greyScale,
       body: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          return Column(
+          return Row(
             children: [
-              AnimatedContainer(
-                width: double.infinity,
-                height: state is SearchLoading || state is SearchSuccess
-                    ? 20.h
-                    : 100.h,
-                duration: const Duration(milliseconds: 500),
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                child: SearchWidget(controller: _controller),
+              Expanded(
+                child: FilterView(
+                  query: _controller.text,
+                  page: 1,
+                ),
               ),
               Expanded(
-                child: Row(
+                flex: 5,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: FilterView(
-                        query: _controller.text,
-                        page: 1,
-                      ),
+                    AnimatedContainer(
+                      margin: EdgeInsets.symmetric(vertical: 2.h),
+                      width: double.infinity,
+                      height: state is SearchLoading || state is SearchSuccess
+                          ? 7.h
+                          : 80.h,
+                      duration: const Duration(milliseconds: 500),
+                      child: SearchWidget(controller: _controller),
                     ),
                     if (state is SearchSuccess)
                       Expanded(
@@ -53,11 +53,8 @@ class _SearchViewState extends State<SearchView> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 2.w, vertical: 2.h),
                                 separatorBuilder: (context, index) {
-                                  return Container(
-                                    height: 1,
-                                    margin: EdgeInsets.symmetric(vertical: 2.h),
-                                    width: double.infinity,
-                                    color: Palette.grey,
+                                  return SizedBox(
+                                    height: 2.h,
                                   );
                                 },
                                 itemCount: state.searchEntity.results.length,
@@ -71,13 +68,12 @@ class _SearchViewState extends State<SearchView> {
                       ),
                     if (state is SearchLoading)
                       const Expanded(
-                        flex: 5,
                         child: Center(
                           child: CircularProgressIndicator(),
                         ),
                       ),
                   ],
-                ),
+                ).symmetric(horizontal: 2.w),
               ),
             ],
           );

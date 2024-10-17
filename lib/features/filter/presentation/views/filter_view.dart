@@ -34,37 +34,47 @@ class FilterView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Texts.bold(
-                  'Source',
-                  fontSize: 11,
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 1.h),
-                  width: double.infinity,
-                  height: 1,
-                  color: Palette.grey,
-                ),
-                CustomCheckbox(
-                  value: state.filter.google,
-                  onChanged: (value) {
-                    context.read<FilterBloc>().add(FilterFiltersEvent(
-                          google: value ?? false,
-                          query: query,
-                          page: page,
-                        ));
-                  },
-                  label: 'Google Scholar',
-                ),
-                CustomCheckbox(
-                  value: state.filter.scielo,
-                  onChanged: (value) {
-                    context.read<FilterBloc>().add(FilterFiltersEvent(
-                          scielo: value ?? false,
-                          query: query,
-                          page: page,
-                        ));
-                  },
-                  label: 'Scielo',
+                ExpansionTile(
+                  initiallyExpanded: true,
+                  leading: Checkbox(
+                    value: state.filter.google,
+                    onChanged: (value) {
+                      context.read<FilterBloc>().add(FilterFiltersEvent(
+                            google: value ?? false,
+                            query: query,
+                            page: page,
+                          ));
+                    },
+                  ),
+                  title: const Texts.bold(
+                    'Source',
+                    fontSize: 11,
+                  ),
+                  childrenPadding: EdgeInsets.only(left: 2.w),
+                  children: [
+                    CustomCheckbox(
+                      value: state.filter.google,
+                      onChanged: (value) {
+                        context.read<FilterBloc>().add(FilterFiltersEvent(
+                              google: value ?? false,
+                              query: query,
+                              page: page,
+                            ));
+                      },
+                      label: 'Google Scholar',
+                    ),
+                    CustomCheckbox(
+                      value: state.filter.scielo,
+                      onChanged: (value) {
+                        context.read<FilterBloc>().add(FilterFiltersEvent(
+                              scielo: value ?? false,
+                              query: query,
+                              page: page,
+                            ));
+                      },
+                      label: 'Scielo',
+                    ),
+                  ],
                 ).only(bottom: 2.h),
                 const Texts.bold(
                   'Settings',

@@ -37,7 +37,6 @@ class _TitleReferenceState extends State<TitleReference> {
           widget.reference.title,
           fontSize: 11,
           maxLines: 2,
-          color: Palette.blue,
           underline: isHover,
           textOverflow: TextOverflow.ellipsis,
         ),

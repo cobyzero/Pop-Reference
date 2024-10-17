@@ -10,21 +10,20 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
   final SearchBloc searchBloc;
   FilterBloc(this.searchBloc)
       : super(FilterState(
-          filter: FilterEntity(
-            google: true,
-            scielo: true,
-            secureMode: true,
-          ),
-        )) {
+            filter: FilterEntity(
+          google: true,
+          scielo: true,
+          secureMode: true,
+        ))) {
     on<FilterFiltersEvent>(_onFilterFiltersEvent);
   }
 
   void _onFilterFiltersEvent(
       FilterFiltersEvent event, Emitter<FilterState> emit) {
-    final filter = state.filter.copyWith(
-      google: event.google,
-      scielo: event.scielo,
-      secureMode: event.secureMode,
+    final filter = FilterEntity(
+      google: event.google ?? state.filter.google,
+      scielo: event.scielo ?? state.filter.scielo,
+      secureMode: event.secureMode ?? state.filter.secureMode,
     );
     emit(FilterState(filter: filter));
     searchBloc.add(SearchQuery(
